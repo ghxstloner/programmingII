@@ -7,29 +7,45 @@ public class TextAnalysisTool {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        // Step 1: Get user input
-        System.out.println("Please enter a paragraph or lengthy text: ");
-        String text = scanner.nextLine();
+        try {
+            // Step 1: Get user input
+            System.out.println("Please enter a paragraph or lengthy text: ");
+            String text = scanner.nextLine();
 
-        // Step 2: Perform analysis
-        System.out.println("Total number of characters: " + characterCount(text));
-        System.out.println("Total number of words: " + wordCount(text));
-        System.out.println("Most common character: " + mostCommonCharacter(text));
+            // Step 2: Perform analysis
+            System.out.println("Total number of characters: " + characterCount(text));
+            System.out.println("Total number of words: " + wordCount(text));
+            System.out.println("Most common character: " + mostCommonCharacter(text));
 
-        // Step 3: Get user input for character frequency
-        System.out.println("Enter a character to find its frequency: ");
-        char charToFind = scanner.nextLine().charAt(0);
-        System.out.println("Frequency of '" + charToFind + "': " + characterFrequency(text, charToFind));
+            // Step 3: Get user input for character frequency
+            System.out.println("Enter a character to find its frequency: ");
+            String inputChar = scanner.nextLine();
+            if (inputChar.length() != 1) {
+                throw new IllegalArgumentException("You must enter exactly one character.");
+            }
+            char charToFind = inputChar.charAt(0);
+            System.out.println("Frequency of '" + charToFind + "': " + characterFrequency(text, charToFind));
 
-        // Step 4: Get user input for word frequency
-        System.out.println("Enter a word to find its frequency: ");
-        String wordToFind = scanner.nextLine();
-        System.out.println("Frequency of \"" + wordToFind + "\": " + wordFrequency(text, wordToFind));
+            // Step 4: Get user input for word frequency
+            System.out.println("Enter a word to find its frequency: ");
+            String wordToFind = scanner.nextLine();
+            System.out.println("Frequency of \"" + wordToFind + "\": " + wordFrequency(text, wordToFind));
 
-        // Step 5: Display number of unique words
-        System.out.println("Number of unique words: " + uniqueWordCount(text));
+            // Step 5: Display number of unique words
+            System.out.println("Number of unique words: " + uniqueWordCount(text));
 
-        scanner.close();
+        } catch (StringIndexOutOfBoundsException e) {
+            System.out.println("Error: Invalid character input. Please try again.");
+        } catch (InputMismatchException e) {
+            System.out.println("Error: Invalid input. Please enter valid text.");
+        } catch (IllegalArgumentException e) {
+            System.out.println("Error: " + e.getMessage());
+        } catch (Exception e) {
+            // Catch-all block for any other exceptions
+            System.out.println("An unexpected error occurred: " + e.getMessage());
+        } finally {
+            scanner.close(); // Ensure scanner is closed
+        }
     }
 
     // Function to count total number of characters
