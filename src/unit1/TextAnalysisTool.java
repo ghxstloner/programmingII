@@ -41,7 +41,6 @@ public class TextAnalysisTool {
         } catch (IllegalArgumentException e) {
             System.out.println("Error: " + e.getMessage());
         } catch (Exception e) {
-            // Catch-all block for any other exceptions
             System.out.println("An unexpected error occurred: " + e.getMessage());
         } finally {
             scanner.close(); // Ensure scanner is closed
